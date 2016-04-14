@@ -1,0 +1,13 @@
+#!/bin/sh
+
+jarList=`find . -name 'kafka-logger-[0-9]\.[0-9]*\.jar'`
+
+if [ -z "$jarList" ]
+then
+  echo "Failed to find jar to execute."
+  exit 1
+fi
+
+jarName=`echo $jarList | cut -d" " -f1`
+
+java -classpath "$jarName" com.comcast.headwaters.kafka.logger.KafkaLogger --config $1
